@@ -7,11 +7,12 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UploadedFile {
+public class UploadedFile extends BaseEntity {
 
     @Id
     private String id;

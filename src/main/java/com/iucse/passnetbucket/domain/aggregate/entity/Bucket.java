@@ -8,12 +8,13 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Document("bucket")
-public class Bucket {
+public class Bucket extends BaseEntity {
     @Id
     private String id;
 
