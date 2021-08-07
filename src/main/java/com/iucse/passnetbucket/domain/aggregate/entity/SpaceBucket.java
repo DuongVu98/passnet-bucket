@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Document("bucket")
-public class Bucket extends BaseEntity {
+public class SpaceBucket extends BaseEntity {
     @Id
     private String id;
 
