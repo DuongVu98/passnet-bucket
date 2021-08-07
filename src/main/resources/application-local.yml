@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: passnet-bucket
+  data:
+    mongodb:
+      uri: mongodb://root:root@localhost:27017/passnet_bucket_db
+  cloud:
+    gcp:
+      core:
+        enabled: true
+      project-id: passnet
+      credentials:
+        location: file:gcp/passnet-294ec642a8fb.json
