@@ -11,3 +11,7 @@ spring:
       project-id: passnet
       credentials:
         location: file:gcp/passnet-294ec642a8fb.json
+config:
+  ownerType:
+    personal: PERSONAL
+    classroom: CLASSROOM
