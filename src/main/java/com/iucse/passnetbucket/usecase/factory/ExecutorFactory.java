@@ -29,7 +29,6 @@ public class ExecutorFactory {
            .command(command)
            .bucketRepository(bucketRepository)
            .ownerTypeMappingService(ownerTypeMappingService)
-           .storageService(storageService)
            .build();
     }
 }

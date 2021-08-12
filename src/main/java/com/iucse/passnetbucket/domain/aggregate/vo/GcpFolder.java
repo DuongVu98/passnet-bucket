@@ -9,6 +9,6 @@ import lombok.experimental.FieldDefaults;
 @EqualsAndHashCode
 @AllArgsConstructor
 @FieldDefaults(makeFinal = true)
-public class GcpBucketId {
+public class GcpFolder {
     private String value;
 }

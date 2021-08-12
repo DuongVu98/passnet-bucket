@@ -1,6 +1,6 @@
 package com.iucse.passnetbucket.domain.aggregate.entity;
 
-import com.iucse.passnetbucket.domain.aggregate.vo.GcpBucketId;
+import com.iucse.passnetbucket.domain.aggregate.vo.GcpFolder;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -21,8 +21,8 @@ public class SpaceBucket extends BaseEntity {
     @Field("owner")
     private Owner owner;
 
-    @Field("gcpBucketId")
-    private GcpBucketId gcpBucketId;
+    @Field("gcpFolder")
+    private GcpFolder gcpFolder;
 
     @Field("uploadedFiles")
     private List<UploadedFile> uploadedFiles;

@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "passnet",
+  "private_key_id": "c384cb0dc3eb2a4dfc1537c66dec6606302e18ce",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCov9bqPu9gFIkJ\nE6KOblTqFNOWtHHO5sTmNZA6VsJPvOROm73G4htLLy+qYbhpfvLKPntx1a2jHoVL\nJKe7ZNTJ84pvKzbQL9GoubMaB8iZxp8+dgCLIekydmwVp+l01fqroh9Ur3jxu+/A\nVIQMc9PO/z7Vy03Niv3h6xB1kb2QmJC6LQm3yiCBgVj7J9zr6/sgrFJqsprDBa/l\ndggXzU21ZdSNqqjsrEHv2qEX4yO9iIOhzyRkGDHTXbNZj9UTKrvDE8GYbTOC8RWr\npbGy3fAEKOAfatI1WnSs5cW5kVct24oGIEZW9StooSWG8O2bKuzUfnsgchscWB1L\nDfs4N+F9AgMBAAECggEAQMb/k4UcM6g+YG8aoA1HaGIdRQU4iOF6JRrbpiFmzuAm\nTeyoAYALVSWkaQXBGjIitjMdBPovAOZ26X0FLEDNFEb6ValjjbBFjbzXPT9OqIUf\n3QTEOaSHVZky7W87BWAcrST7XPFM/pKTuqNW20bdQGEn+D7mO2hHBCHNfCw5dhcT\nKFDqTozCKVMtltzcWJKSgFDXiWioPaf6zO/jSjuEk3EqP/O038pnL5SzR2CQgpIZ\nHGQbngdn/ltqaBEU9ZUW3WuNYBPI1e8PeuvGMGn2w7N52uVnmryQ20MJWJY2n0qt\nsXyelbnHHQ1DS2g5a31I3dS0zXa3E1vC2hhkARSgiwKBgQDQ70NhwjTkQgYJvuK2\nBGMeyczb3YhxO+zdaIjrPL8YWYp2oOZfzs7sc/4LntJP5z+1VhUhqgKF5ucRaopC\nWi41HyT1NL/bKohlQuWsAXwQRL/kFp2r4v37ftcIXuoTZ9EiooqJIHgecX3+Epyq\ncmokX/IGopzpoPJFJ2yOSgt9jwKBgQDOwzGNd3uN6J3nQK6P2V2SW05ciMGuAnJm\nqkNTXeDz/o/W56TEfomu6OR00+7WCJ5L99rMGz0eQeAsmcni3HWHK16jfG2pAJje\nI8uwEi8cGWc6hU+ZexlCubKFAPznJcHRwtFiZlEKowedWHEiEz/TToKraLpRf+2B\n1CeFvAFCMwKBgQCRhkUpfwo1/iKUgScJXi7nz+jnLvsM249Ue636Itp7DErb65/q\nFXKc0QGeeGXGD6yZEjcvtmmBeF1zDQD1zDgo+eNVAwOqlIph9WFhF7ug3THGnVX+\n1eDPXf5KL0nccFADTrEtZ7cihSwbXj1Onth9M3Kw2mxucZKtRhNfXAV60wKBgBOt\nVeDttw95TNW+PR6phBMyp1F9HlmOGA8XMxMTAx6VYmEEaJTeqgHAXkWUCc3Kwi3e\np673BKkFge0csa7qZjD3+qi6ZcFIskOpym+2O0+ER2O1Xi7wHSZRf+DSiD8DQ9/P\nl5eyvxGxFD9wNEwW4uMcPKlNbTXmY9cQNraufrwrAoGBAJhT/CXHNMVWu+yLHXXQ\nnsnTR9M9aW+hBLS1sb5tBcXoON5YS2RSh3XBjN+PzOV+k/CkI8zoAZIKO/gvYWWx\nxxWw2Gm3pjczYOfxS+Qk30jP7cLTG5zZRmPmEHERNeHYmqEXo1ZUi7z6DMxXkk4E\nck4JcEuekAiQlQTl0mGB2D0Q\n-----END PRIVATE KEY-----\n",
+  "client_email": "bucket-testing@passnet.iam.gserviceaccount.com",
+  "client_id": "106884809449980533020",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/bucket-testing%40passnet.iam.gserviceaccount.com"
+}

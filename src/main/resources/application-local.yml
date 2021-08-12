@@ -1,17 +1,22 @@
+server:
+  port: 8085
 spring:
   application:
     name: passnet-bucket
   data:
     mongodb:
-      uri: mongodb://root:root@localhost:27017/passnet_bucket_db
+      uri: mongodb://root:root@localhost:27017/passnet_bucket_db?authSource=admin
+      database: passnet_bucket_db
   cloud:
     gcp:
       core:
         enabled: true
       project-id: passnet
       credentials:
-        location: file:gcp/passnet-294ec642a8fb.json
+        location: file:gcp/passnet-c384cb0dc3eb.json
 config:
   ownerType:
     personal: PERSONAL
     classroom: CLASSROOM
+  bucket:
+    appBucket: passnet_user_bucket

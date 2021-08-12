@@ -2,7 +2,7 @@ package com.iucse.passnetbucket.usecase.executor;
 
 import com.iucse.passnetbucket.domain.aggregate.entity.Owner;
 import com.iucse.passnetbucket.domain.aggregate.entity.SpaceBucket;
-import com.iucse.passnetbucket.domain.aggregate.vo.GcpBucketId;
+import com.iucse.passnetbucket.domain.aggregate.vo.GcpFolder;
 import com.iucse.passnetbucket.domain.aggregate.vo.OwnerId;
 import com.iucse.passnetbucket.domain.command.BaseCommand;
 import com.iucse.passnetbucket.domain.command.CreateBucketCommand;
@@ -17,14 +17,12 @@ import java.util.ArrayList;
 
 public class CreateBucketExecutor extends CommandExecutor implements CommandConverter<CreateBucketCommand> {
 
-    private final StorageService storageService;
     private final BucketRepository bucketRepository;
     private final OwnerTypeMappingService ownerTypeMappingService;
 
     @Builder
-    public CreateBucketExecutor(BaseCommand command, StorageService storageService, BucketRepository bucketRepository, OwnerTypeMappingService ownerTypeMappingService) {
+    public CreateBucketExecutor(BaseCommand command, BucketRepository bucketRepository, OwnerTypeMappingService ownerTypeMappingService) {
         super(command);
-        this.storageService = storageService;
         this.bucketRepository = bucketRepository;
         this.ownerTypeMappingService = ownerTypeMappingService;
     }
@@ -32,6 +30,7 @@ public class CreateBucketExecutor extends CommandExecutor implements CommandConv
     @Override
     public SpaceBucket execute() {
         var typedCommand = convertCommand(command);
+
         return this.bucketRepository.save(
            SpaceBucket.builder()
               .owner(
@@ -41,7 +40,7 @@ public class CreateBucketExecutor extends CommandExecutor implements CommandConv
                     .build()
               )
               .uploadedFiles(new ArrayList<>())
-              .gcpBucketId(new GcpBucketId(this.storageService.getStorageId()))
+              .gcpFolder(new GcpFolder(typedCommand.getOwnerId()))
               .build()
         );
     }
