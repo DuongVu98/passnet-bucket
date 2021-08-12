@@ -38,10 +38,10 @@ public class UploadFileExecutor extends CommandExecutor implements CommandConver
     public SpaceBucket execute() {
         var typedCommand = convertCommand(command);
         var file = typedCommand.getFile();
-        var bucket = bucketRepository.findByOwner_OwnerId(new OwnerId(typedCommand.getOwnerId())).orElseThrow(() -> new BucketNotFoundException(String.format("Bucket for owner %s not found", typedCommand.getOwnerId())));
+        var bucket = bucketRepository.findByOwnerId(new OwnerId(typedCommand.getOwnerId())).orElseThrow(() -> new BucketNotFoundException(String.format("Bucket for owner %s not found", typedCommand.getOwnerId())));
 
         checkFileExists(file, bucket);
-        
+
         try {
             Blob blob = storageService.upload(bucket.getGcpFolder().getValue(), file.getOriginalFilename(), file.getBytes());
 
