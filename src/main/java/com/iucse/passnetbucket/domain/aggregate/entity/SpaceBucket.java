@@ -26,4 +26,8 @@ public class SpaceBucket extends BaseEntity {
 
     @Field("uploadedFiles")
     private List<UploadedFile> uploadedFiles;
+
+    public void uploadFile(UploadedFile file) {
+        this.uploadedFiles.add(file);
+    }
 }

@@ -1,9 +1,11 @@
 package com.iucse.passnetbucket.usecase.factory;
 
 import com.iucse.passnetbucket.domain.command.CreateBucketCommand;
+import com.iucse.passnetbucket.domain.command.UploadFileCommand;
 import com.iucse.passnetbucket.domain.repository.BucketRepository;
 import com.iucse.passnetbucket.usecase.executor.CommandExecutor;
 import com.iucse.passnetbucket.usecase.executor.CreateBucketExecutor;
+import com.iucse.passnetbucket.usecase.executor.UploadFileExecutor;
 import com.iucse.passnetbucket.usecase.service.OwnerTypeMappingService;
 import com.iucse.passnetbucket.usecase.service.StorageService;
 import lombok.experimental.FieldDefaults;
@@ -29,6 +31,14 @@ public class ExecutorFactory {
            .command(command)
            .bucketRepository(bucketRepository)
            .ownerTypeMappingService(ownerTypeMappingService)
+           .build();
+    }
+
+    public CommandExecutor produce(UploadFileCommand command) {
+        return UploadFileExecutor.builder()
+           .command(command)
+           .bucketRepository(bucketRepository)
+           .storageService(storageService)
            .build();
     }
 }

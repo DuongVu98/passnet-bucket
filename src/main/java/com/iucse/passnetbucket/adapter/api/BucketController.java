@@ -2,15 +2,15 @@ package com.iucse.passnetbucket.adapter.api;
 
 import com.iucse.passnetbucket.adapter.controller.CommandGateway;
 import com.iucse.passnetbucket.domain.command.CreateBucketCommand;
+import com.iucse.passnetbucket.domain.command.UploadFileCommand;
 import com.iucse.passnetbucket.domain.request.CreateBucketRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 @RestController
 @RequestMapping("/api/buckets")
@@ -31,6 +31,16 @@ public class BucketController extends BaseController {
            .build();
         this.commandGateway.send(command);
 
-        return returnOk();
+        return returnCreated();
+    }
+
+    @PostMapping("/upload-file")
+    public ResponseEntity<Object> uploadFile(@Valid @NotNull @RequestParam("file") MultipartFile file, @RequestParam("ownerId") String ownerId) {
+        var command = UploadFileCommand.builder()
+           .file(file)
+           .ownerId(ownerId)
+           .build();
+        this.commandGateway.send(command);
+        return returnCreated();
     }
 }
