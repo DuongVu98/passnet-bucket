@@ -15,23 +15,29 @@ import com.iucse.passnetbucket.domain.exception.FileNameExistedException;
 import com.iucse.passnetbucket.domain.exception.FileNotExistException;
 import com.iucse.passnetbucket.domain.repository.BucketRepository;
 import com.iucse.passnetbucket.usecase.feature.CommandConverter;
+import com.iucse.passnetbucket.usecase.service.RewriteNameService;
 import com.iucse.passnetbucket.usecase.service.StorageService;
 import lombok.Builder;
+import lombok.experimental.FieldDefaults;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
 
+@FieldDefaults(makeFinal = true)
 public class UploadFileExecutor extends CommandExecutor implements CommandConverter<UploadFileCommand> {
 
-    private final StorageService storageService;
-    private final BucketRepository bucketRepository;
+    private StorageService storageService;
+    private BucketRepository bucketRepository;
+    private RewriteNameService rewriteNameService;
 
     @Builder
-    public UploadFileExecutor(BaseCommand command, StorageService storageService, BucketRepository bucketRepository) {
+    public UploadFileExecutor(BaseCommand command, StorageService storageService, BucketRepository bucketRepository, RewriteNameService rewriteNameService) {
         super(command);
         this.storageService = storageService;
         this.bucketRepository = bucketRepository;
+        this.rewriteNameService = rewriteNameService;
     }
 
     @Override
@@ -40,14 +46,14 @@ public class UploadFileExecutor extends CommandExecutor implements CommandConver
         var file = typedCommand.getFile();
         var bucket = bucketRepository.findByOwnerId(new OwnerId(typedCommand.getOwnerId())).orElseThrow(() -> new BucketNotFoundException(String.format("Bucket for owner %s not found", typedCommand.getOwnerId())));
 
-        checkFileExists(file, bucket);
+        var fileName = checkFileExistsOrElse(file, bucket, typedCommand.isRewriteName());
 
         try {
-            Blob blob = storageService.upload(bucket.getGcpFolder().getValue(), file.getOriginalFilename(), file.getBytes());
+            Blob blob = storageService.upload(bucket.getGcpFolder().getValue(), fileName, file.getBytes());
 
             bucket.uploadFile(
                UploadedFile.builder()
-                  .fileName(new FileName(Objects.requireNonNull(file.getOriginalFilename())))
+                  .fileName(new FileName(fileName))
                   .fileType(new FileType(getDocType(file)))
                   .signedUrl(new SignedUrl(blob.getSelfLink()))
                   .build()
@@ -73,15 +79,20 @@ public class UploadFileExecutor extends CommandExecutor implements CommandConver
         return separatedName[separatedName.length - 1];
     }
 
-    private void checkFileExists(MultipartFile file, SpaceBucket bucket) {
-        var fileName = file.getOriginalFilename();
+    private String checkFileExistsOrElse(MultipartFile file, SpaceBucket bucket, boolean rewrite) {
+        AtomicReference<String> fileName = new AtomicReference<>(file.getOriginalFilename());
         bucket.getUploadedFiles().stream()
-           .filter(f -> f.getFileName().getValue().equals(fileName))
+           .filter(f -> f.getFileName().getValue().equals(fileName.get()))
            .findFirst()
            .ifPresent(
               uploadedFile -> {
-                  throw new FileNameExistedException(String.format("File name [%s] existed in bucket [%s]", fileName, bucket.getId()));
+                  if (!rewrite) {
+                    throw new FileNameExistedException(String.format("File name [%s] existed in bucket [%s]", fileName.get(), bucket.getId()));
+                  } else {
+                      fileName.set(rewriteNameService.rewriteName(bucket, fileName.get()));
+                  }
               }
            );
+        return fileName.get();
     }
 }
