@@ -14,4 +14,5 @@ import org.springframework.web.multipart.MultipartFile;
 public class UploadFileCommand extends BaseCommand {
     String ownerId;
     MultipartFile file;
+    boolean rewriteName;
 }
