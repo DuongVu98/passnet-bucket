@@ -87,7 +87,7 @@ public class UploadFileExecutor extends CommandExecutor implements CommandConver
            .ifPresent(
               uploadedFile -> {
                   if (!rewrite) {
-                    throw new FileNameExistedException(String.format("File name [%s] existed in bucket [%s]", fileName.get(), bucket.getId()));
+                      throw new FileNameExistedException(String.format("File name [%s] existed in bucket [%s]", fileName.get(), bucket.getId()));
                   } else {
                       fileName.set(rewriteNameService.rewriteName(bucket, fileName.get()));
                   }
