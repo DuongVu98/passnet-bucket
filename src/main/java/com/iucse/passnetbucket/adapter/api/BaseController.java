@@ -28,4 +28,8 @@ public class BaseController {
     protected ResponseEntity<ErrorView> returnBadRequest(String message, Object body) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorView(message, HttpStatus.BAD_REQUEST.name(), body));
     }
+
+    protected ResponseEntity<ErrorView> returnInternalServer(String message) {
+        return ResponseEntity.internalServerError().body(new ErrorView(message, HttpStatus.INTERNAL_SERVER_ERROR.name()));
+    }
 }
