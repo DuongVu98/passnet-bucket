@@ -45,7 +45,7 @@ public class GlobalExceptionHandler extends BaseController {
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler(BucketNotFoundException.class)
+    @ExceptionHandler(CommandNotCompatibleException.class)
     public ResponseEntity<ErrorView> handle(CommandNotCompatibleException exception) {
         return returnInternalServer(exception.getMessage());
     }
