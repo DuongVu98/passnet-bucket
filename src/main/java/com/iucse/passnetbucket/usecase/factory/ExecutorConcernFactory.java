@@ -10,17 +10,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ExecutorConcernBuilder {
+public class ExecutorConcernFactory {
 
     private final FileRepository fileRepository;
     private CommandExecutor commandExecutor;
 
     @Autowired
-    public ExecutorConcernBuilder(FileRepository fileRepository) {
+    public ExecutorConcernFactory(FileRepository fileRepository) {
         this.fileRepository = fileRepository;
     }
 
-    public synchronized ExecutorConcernBuilder withExecutor(CommandExecutor executor) {
+    public synchronized ExecutorConcernFactory withExecutor(CommandExecutor executor) {
         this.commandExecutor = executor;
         return this;
     }
