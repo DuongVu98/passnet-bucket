@@ -3,10 +3,7 @@ package com.iucse.passnetbucket.usecase.executor;
 import com.google.cloud.storage.Blob;
 import com.iucse.passnetbucket.domain.aggregate.entity.SpaceBucket;
 import com.iucse.passnetbucket.domain.aggregate.entity.UploadedFile;
-import com.iucse.passnetbucket.domain.aggregate.vo.FileName;
-import com.iucse.passnetbucket.domain.aggregate.vo.FileType;
-import com.iucse.passnetbucket.domain.aggregate.vo.OwnerId;
-import com.iucse.passnetbucket.domain.aggregate.vo.SignedUrl;
+import com.iucse.passnetbucket.domain.aggregate.vo.*;
 import com.iucse.passnetbucket.domain.command.BaseCommand;
 import com.iucse.passnetbucket.domain.command.UploadFileCommand;
 import com.iucse.passnetbucket.domain.exception.BucketNotFoundException;
@@ -33,8 +30,7 @@ public class UploadFileExecutor extends CommandExecutor implements CommandConver
     private RewriteNameService rewriteNameService;
 
     @Builder
-    public UploadFileExecutor(BaseCommand command, StorageService storageService, BucketRepository bucketRepository, RewriteNameService rewriteNameService) {
-        super(command);
+    public UploadFileExecutor(StorageService storageService, BucketRepository bucketRepository, RewriteNameService rewriteNameService) {
         this.storageService = storageService;
         this.bucketRepository = bucketRepository;
         this.rewriteNameService = rewriteNameService;
@@ -54,8 +50,9 @@ public class UploadFileExecutor extends CommandExecutor implements CommandConver
             bucket.uploadFile(
                UploadedFile.builder()
                   .fileName(new FileName(fileName))
-                  .fileType(new FileType(getDocType(file)))
+                  .documentExtension(new DocumentExtension(getDocType(file)))
                   .signedUrl(new SignedUrl(blob.getSelfLink()))
+                  .posterId(new PosterId(typedCommand.getPosterId()))
                   .build()
             );
         } catch (IOException exception) {

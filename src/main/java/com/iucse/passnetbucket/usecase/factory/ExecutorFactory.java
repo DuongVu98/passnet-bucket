@@ -1,10 +1,12 @@
 package com.iucse.passnetbucket.usecase.factory;
 
 import com.iucse.passnetbucket.domain.command.CreateBucketCommand;
+import com.iucse.passnetbucket.domain.command.DeleteFileCommand;
 import com.iucse.passnetbucket.domain.command.UploadFileCommand;
 import com.iucse.passnetbucket.domain.repository.BucketRepository;
 import com.iucse.passnetbucket.usecase.executor.CommandExecutor;
 import com.iucse.passnetbucket.usecase.executor.CreateBucketExecutor;
+import com.iucse.passnetbucket.usecase.executor.DeleteFileExecutor;
 import com.iucse.passnetbucket.usecase.executor.UploadFileExecutor;
 import com.iucse.passnetbucket.usecase.service.OwnerTypeMappingService;
 import com.iucse.passnetbucket.usecase.service.RewriteNameService;
@@ -30,19 +32,29 @@ public class ExecutorFactory {
     }
 
     public CommandExecutor produce(CreateBucketCommand command) {
-        return CreateBucketExecutor.builder()
-           .command(command)
+        var executor = CreateBucketExecutor.builder()
            .bucketRepository(bucketRepository)
            .ownerTypeMappingService(ownerTypeMappingService)
            .build();
+        executor.setCommand(command);
+        return executor;
     }
 
     public CommandExecutor produce(UploadFileCommand command) {
-        return UploadFileExecutor.builder()
-           .command(command)
+        var executor = UploadFileExecutor.builder()
            .bucketRepository(bucketRepository)
            .storageService(storageService)
            .rewriteNameService(rewriteNameService)
            .build();
+        executor.setCommand(command);
+        return executor;
+    }
+
+    public CommandExecutor produce(DeleteFileCommand command) {
+        var executor = DeleteFileExecutor.builder()
+           .bucketRepository(bucketRepository)
+           .build();
+        executor.setCommand(command);
+        return executor;
     }
 }

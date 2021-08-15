@@ -30,4 +30,8 @@ public class SpaceBucket extends BaseEntity {
     public void uploadFile(UploadedFile file) {
         this.uploadedFiles.add(file);
     }
+
+    public void deleteFile(UploadedFile file) {
+        this.uploadedFiles.remove(file);
+    }
 }

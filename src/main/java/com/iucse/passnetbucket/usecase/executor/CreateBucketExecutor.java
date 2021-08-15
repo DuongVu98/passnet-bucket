@@ -20,8 +20,7 @@ public class CreateBucketExecutor extends CommandExecutor implements CommandConv
     private final OwnerTypeMappingService ownerTypeMappingService;
 
     @Builder
-    public CreateBucketExecutor(BaseCommand command, BucketRepository bucketRepository, OwnerTypeMappingService ownerTypeMappingService) {
-        super(command);
+    public CreateBucketExecutor(BucketRepository bucketRepository, OwnerTypeMappingService ownerTypeMappingService) {
         this.bucketRepository = bucketRepository;
         this.ownerTypeMappingService = ownerTypeMappingService;
     }

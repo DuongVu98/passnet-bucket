@@ -35,21 +35,23 @@ public class BucketController extends BaseController {
     }
 
     @PostMapping("/upload-file")
-    public ResponseEntity<Object> uploadFile(@Valid @NotNull @RequestParam("file") MultipartFile file, @RequestParam("ownerId") String ownerId) {
+    public ResponseEntity<Object> uploadFile(@Valid @NotNull @RequestParam("file") MultipartFile file, @RequestParam("ownerId") String ownerId, @RequestParam("posterId") String posterId) {
         var command = UploadFileCommand.builder()
            .file(file)
            .ownerId(ownerId)
            .rewriteName(false)
+           .posterId(posterId)
            .build();
         this.commandGateway.send(command);
         return returnCreated();
     }
 
     @PostMapping("/upload-file-rewrite")
-    public ResponseEntity<Object> uploadFileRewrite(@Valid @NotNull @RequestParam("file") MultipartFile file, @RequestParam("ownerId") String ownerId) {
+    public ResponseEntity<Object> uploadFileRewrite(@Valid @NotNull @RequestParam("file") MultipartFile file, @RequestParam("ownerId") String ownerId, @RequestParam("posterId") String posterId) {
         var command = UploadFileCommand.builder()
            .file(file)
            .ownerId(ownerId)
+           .posterId(posterId)
            .rewriteName(true)
            .build();
         this.commandGateway.send(command);
