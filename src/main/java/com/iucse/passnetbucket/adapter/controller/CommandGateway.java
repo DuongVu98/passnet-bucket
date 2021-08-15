@@ -32,11 +32,11 @@ public class CommandGateway {
     }
 
     public void send(DeleteFileCommand command) {
-        var executor = executorFactory.produce(command);
-        executor = concernBuilder.withExecutor(executor)
-           .proxy()
-           .addProxy(PosterProxy.class)
-           .compose();
+        var executor =
+           concernBuilder.withExecutor(executorFactory.produce(command))
+              .proxy()
+              .addProxy(PosterProxy.class).compose()
+              .build();
 
         executor.execute();
     }

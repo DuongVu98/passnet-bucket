@@ -20,20 +20,28 @@ public class ExecutorConcernFactory {
         this.fileRepository = fileRepository;
     }
 
-    public synchronized ExecutorConcernFactory withExecutor(CommandExecutor executor) {
+    public ExecutorConcernFactory withExecutor(CommandExecutor executor) {
         this.commandExecutor = executor;
         return this;
     }
 
     public ProxyBuilder proxy() {
-        var executor = new ProxyBuilder(fileRepository);
+        var executor = new ProxyBuilder(fileRepository, this);
         executor.setCommandExecutor(commandExecutor);
         return executor;
     }
 
-    @RequiredArgsConstructor
-    public static class ProxyBuilder extends ConcernBuilder{
+    public CommandExecutor build() {
+        return this.commandExecutor;
+    }
+
+    public static class ProxyBuilder extends ConcernBuilder {
         private final FileRepository fileRepository;
+
+        public ProxyBuilder(FileRepository fileRepository, ExecutorConcernFactory factory) {
+            super(factory);
+            this.fileRepository = fileRepository;
+        }
 
         public ProxyBuilder addProxy(Class<? extends ExecutorProxy> proxyClass) {
             if (proxyClass.isInstance(PosterProxy.class)) {
@@ -48,13 +56,16 @@ public class ExecutorConcernFactory {
         }
     }
 
+    @RequiredArgsConstructor
     private static class ConcernBuilder {
+
+        protected final ExecutorConcernFactory factory;
 
         @Setter
         protected CommandExecutor commandExecutor;
 
-        public final CommandExecutor compose() {
-            return this.commandExecutor;
+        public final ExecutorConcernFactory compose() {
+            return factory.withExecutor(commandExecutor);
         }
     }
 }

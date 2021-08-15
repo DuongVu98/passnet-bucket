@@ -2,6 +2,7 @@ package com.iucse.passnetbucket.adapter.api;
 
 import com.iucse.passnetbucket.adapter.controller.CommandGateway;
 import com.iucse.passnetbucket.domain.command.CreateBucketCommand;
+import com.iucse.passnetbucket.domain.command.DeleteFileCommand;
 import com.iucse.passnetbucket.domain.command.UploadFileCommand;
 import com.iucse.passnetbucket.domain.request.CreateBucketRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,5 +57,16 @@ public class BucketController extends BaseController {
            .build();
         this.commandGateway.send(command);
         return returnCreated();
+    }
+
+    @DeleteMapping("/delete-file")
+    public ResponseEntity<Object> deleteFile(@RequestParam("bucketId") String bucketId, @RequestParam("fileId") String fileId, @RequestParam("posterId") String posterId) {
+        var command = DeleteFileCommand.builder()
+           .fileId(fileId)
+           .posterId(posterId)
+           .build();
+        command.setAggregateId(bucketId);
+        this.commandGateway.send(command);
+        return returnOk();
     }
 }
